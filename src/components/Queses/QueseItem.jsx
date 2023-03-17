@@ -1,14 +1,20 @@
-import { Div } from "@vkontakte/vkui"
+import { Card, CardGrid, Div, Paragraph, Title } from "@vkontakte/vkui"
 import './index.css'
 
 const QuestionItem = ({
     id,
     title,
+    description,
     questionsLength
 }) => {
-    return <Div className="quesesItem">
-        {title}
-    </Div>
+    return <CardGrid size="l">
+        <Card mode="shadow">
+            <Div className="quesesItem">
+                <Title className="queseTitle">{title}</Title>
+                <Paragraph className="queseDescription">{description}</Paragraph>
+            </Div>
+        </Card>
+    </CardGrid>
 }
 
 export default QuestionItem

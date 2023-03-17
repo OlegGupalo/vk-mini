@@ -13,36 +13,36 @@ const PlusWidth = ({
                 {isVKCOM && <PanelHeader />}
                 <Group>
                     <Cell
-                        disabled={activeStory === 'feed'}
+                        disabled={activeStory === 'home'}
                         style={
-                            activeStory === 'feed'
+                            activeStory === 'home'
                             ? {
                                 backgroundColor: 'var(--vkui--color_background_secondary)',
                                 borderRadius: 8,
                                 }
                             : {}
                         }
-                        data-story="feed"
+                        data-story="home"
                         onClick={onStoryChange}
                         before={<Icon28Newsfeed />}
                     >
                     Главная
                     </Cell>
                     <Cell
-                        disabled={activeStory === 'questions'}
+                        disabled={activeStory === 'create'}
                         style={
-                            activeStory === 'questions'
+                            activeStory === 'create'
                             ? {
                                 backgroundColor: 'var(--vkui--color_background_secondary)',
                                 borderRadius: 8,
                                 }
                             : {}
                         }
-                        data-story="questions"
+                        data-story="create"
                         onClick={onStoryChange}
                         before={<Icon28Newsfeed />}
                     >
-                    Вопросы
+                    Создать
                     </Cell>
                     <Cell
                         disabled={activeStory === 'friends'}
@@ -59,22 +59,6 @@ const PlusWidth = ({
                         before={<Icon28Newsfeed />}
                         >
                             Друзья
-                    </Cell>
-                    <Cell
-                    disabled={activeStory === 'clips'}
-                    style={
-                        activeStory === 'clips'
-                        ? {
-                            backgroundColor: 'var(--vkui--color_background_secondary)',
-                            borderRadius: 8,
-                            }
-                        : {}
-                    }
-                    data-story="clips"
-                    onClick={onStoryChange}
-                    before={<Icon28Newsfeed />}
-                    >
-                    clips
                     </Cell>
                     <Cell
                     disabled={activeStory === 'profile'}

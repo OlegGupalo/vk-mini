@@ -1,35 +1,60 @@
-import { Div } from "@vkontakte/vkui"
+import { Div, Group } from "@vkontakte/vkui"
 import QuestionItem from "./QueseItem"
 
 const queses = [
     {
         id: 0,
         title: "Игра престолов",
-        questionsLength: 8
+        questionsLength: 8,
+        description: "2 сезон",
     },
     {
         id: 0,
         title: "Игра престолов",
-        questionsLength: 8
+        questionsLength: 8,
+        description: "2 сезон",
+
     },
     {
         id: 0,
         title: "Игра престолов",
-        questionsLength: 8
+        questionsLength: 8,
+        description: "2 сезон",
+
     },
     {
         id: 0,
         title: "Игра престолов",
-        questionsLength: 8
+        questionsLength: 8,
+        description: "2 сезон",
+
+    },
+    {
+        id: 0,
+        title: "Игра престолов",
+        questionsLength: 8,
+        description: "2 сезон",
+
+    },
+    {
+        id: 0,
+        title: "Игра престолов",
+        questionsLength: 8,
+        description: "2 сезон",
+
     }
 ]
 
 const Queses = () => {
     return <Div>
         {queses.map(items => {
-            return <QuestionItem id={items.id} {...items} />
+            return (
+                <Group mode="plain">
+                    <QuestionItem id={items.id} {...items} />
+                </Group>
+            ) 
+            
         })}
-        <Div>tsal</Div>
     </Div>
 }
 
