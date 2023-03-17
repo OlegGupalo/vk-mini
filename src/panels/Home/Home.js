@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge'
 import './Home.css'
+import Queses from '../../components/Queses/Queses';
 
 const Home = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
@@ -18,10 +19,8 @@ const Home = ({ id, go, fetchedUser }) => (
 			</Cell>
 		</Group>}
 
-		<Group header={<Header mode="secondary">Navigation Example Handler</Header>}>
-			<Div>
-					Show me the Persik, please
-			</Div>
+		<Group header={<Header mode="secondary">Список всех квизов</Header>}>
+			<Queses />
 		</Group>
 	</Panel>
 );

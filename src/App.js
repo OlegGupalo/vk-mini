@@ -45,7 +45,7 @@ const App = () => {
 		</SplitCol>
       )}
 
-      <SplitCol width="100%" maxWidth="560px" stretchedOnMobile autoSpaced>
+      <SplitCol width="100%" maxWidth="800px" stretchedOnMobile autoSpaced>
         <Epic
           activeStory={activeStory}
           tabbar={
@@ -61,9 +61,9 @@ const App = () => {
                 </TabbarItem>
                 <TabbarItem
                   onClick={onStoryChange}
-                  selected={activeStory === 'profile'}
-                  data-story="profile"
-                  text="Новости"
+                  selected={activeStory === 'friends'}
+                  data-story="friends"
+                  text="Друзья"
                 >
                   <Icon28NewsfeedOutline />
                 </TabbarItem>
