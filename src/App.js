@@ -6,27 +6,22 @@ import {
 	AppRoot, 
 	ConfigProvider, 
 	SplitLayout, 
-	SplitCol, 
-	Epic, 
-	useAdaptivityConditionalRender, 
-	Tabbar, 
-	TabbarItem, 
-	Badge, 
+	SplitCol,
+	useAdaptivityConditionalRender,
 	usePlatform, 
 	Platform, 
-	PanelHeader, 
-	Panel, 
-	Group, 
-	PanelHeaderBack, 
-	Placeholder, 
+	PanelHeader,
+  Root, 
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home/Home';
-import Persik from './panels/Home/Persik';
 import Questions from './panels/Questions/Questions';
-import { Icon28AccessibilityOutline, Icon28MessageOutline, Icon28Newsfeed, Icon28NewsfeedOutline, Icon28UserCircleOutline } from '@vkontakte/icons';
 import PlusWidth from './components/maxWidthPlus';
-import Create from './panels/Create/Create.';
+import Create from './panels/Create/Create';
+import {PANEL_CREATE, PANEL_FRIENDS, PANEL_MAIN, PANEL_PRODUCT_ITEM, PANEL_PROFILE, VIEW_PRODUCT_ITEM, VIEW_MAIN} from './index.js'
+import { useLocation, useRouter } from '@happysanta/router';
+import QueseContainer from './components/Queses/QueseContainer';
+import MinusWidth from './components/minusWidthMinus';
 
 
 const App = () => {
@@ -34,6 +29,7 @@ const App = () => {
 	const platform = usePlatform();
 	const { viewWidth } = useAdaptivityConditionalRender();
 	const [activeStory, setActiveStory] = React.useState('home');
+  const [friends, setFriends] = useState(null)
 	const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
 	const isVKCOM = platform !== Platform.VKCOM;
 
@@ -44,8 +40,20 @@ const App = () => {
 			setPopout(null);
 		}
 		fetchData();
+    bridge.send('VKWebAppGetFriends', {
+      multi: true
+    })
+    .then((data) => { 
+      if (data.users) {
+        setFriends(data.users)
+      }
+    })
+    .catch((error) => {
+      // Ошибка
+      console.log(error);
+    });
 	}, []);
-
+  const location = useLocation()
 	return (
 		<ConfigProvider>
 			<AdaptivityProvider>
@@ -61,67 +69,29 @@ const App = () => {
 								isVKCOM={isVKCOM}
 								activeStory={activeStory}
 								onStoryChange={onStoryChange}
+								fetchedUser={fetchedUser}
 							/>
 						</SplitCol>
 					)}
+          {viewWidth.tabletMinus && (
+            <MinusWidth 
+              viewWidth={viewWidth}
+              activeStory={activeStory}
+            />
+          )}
 
       <SplitCol width="100%" maxWidth="800px" stretchedOnMobile autoSpaced>
-        <Epic
-          activeStory={activeStory}
-          tabbar={
-            viewWidth.tabletMinus && (
-              <Tabbar className={viewWidth.tabletMinus.className}>
-                <TabbarItem
-                  onClick={onStoryChange}
-                  selected={activeStory === 'home'}
-                  data-story="home"
-                  text="Главная"
-                >
-                  <Icon28Newsfeed />
-                </TabbarItem>
-                <TabbarItem
-                  onClick={onStoryChange}
-                  selected={activeStory === 'friends'}
-                  data-story="friends"
-                  text="Друзья"
-                >
-                  <Icon28NewsfeedOutline />
-                </TabbarItem>
-				<TabbarItem
-                  onClick={onStoryChange}
-                  selected={activeStory === 'create'}
-                  data-story="create"
-                  text="Создать"
-                >
-                  <Icon28NewsfeedOutline />
-                </TabbarItem>
-              </Tabbar>
-            )
-          }
+        <Root
+          activeView={location.getViewId()}
         >
-          <View id="profile" activePanel="profile">
-            <Questions id="feed" go={onStoryChange} />
-          </View>
-          <View id="home" activePanel="home">
-            <Home id={activeStory} go={onStoryChange} fetchedUser={fetchedUser} />
-          </View>
-          <View id="friends" activePanel="friends">
-            <Questions id='friends' />
-          </View>
-          <View id="create" activePanel="create">
-            <Create id="create" fetchedUser={fetchedUser} />
-          </View>
-          <View id="profile" activePanel="profile">
-            <Panel id="profile">
-              <PanelHeader before={<PanelHeaderBack />}>Профиль</PanelHeader>
-              <Group style={{ height: '1000px' }}>
-                <Placeholder
-                  icon={<Icon28UserCircleOutline width={56} height={56} />}
-                ></Placeholder>
-              </Group>
-            </Panel>
-          </View>
-        </Epic>
+          <View id={VIEW_MAIN} activePanel={location.getViewActivePanel(VIEW_MAIN)}>
+            <Questions id={PANEL_PROFILE} go={onStoryChange} />
+            <Home id={PANEL_MAIN} fetchedUser={fetchedUser} />
+            <Questions id={PANEL_FRIENDS} friends={friends} />
+            <Create id={PANEL_CREATE} fetchedUser={fetchedUser} />
+            <QueseContainer id={PANEL_PRODUCT_ITEM} />
+          </View>          
+        </Root>
       </SplitCol>
     </SplitLayout>
 				</AppRoot>

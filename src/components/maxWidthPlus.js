@@ -1,5 +1,7 @@
 import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Epic, useAdaptivityConditionalRender, Tabbar, TabbarItem, Badge, usePlatform, Platform, PanelHeader, Panel, Cell, Group, Counter, PanelHeaderBack, Placeholder, Button } from '@vkontakte/vkui';
 import { Icon28AccessibilityOutline, Icon28MessageOutline, Icon28Newsfeed, Icon28NewsfeedOutline, Icon28UserCircleOutline } from '@vkontakte/icons';
+import { useRouter } from '@happysanta/router';
+import { PAGE_CREATE, PAGE_FRIENDS, PAGE_MAIN, PAGE_PROFILE } from '..';
 
 
 const PlusWidth = ({
@@ -9,21 +11,23 @@ const PlusWidth = ({
     onStoryChange,
 
 }) => {
+    const router = useRouter()
+    
     return <Panel>
                 {isVKCOM && <PanelHeader />}
                 <Group>
                     <Cell
-                        disabled={activeStory === 'home'}
+                        disabled={activeStory === 'main'}
                         style={
-                            activeStory === 'home'
+                            activeStory === 'main'
                             ? {
                                 backgroundColor: 'var(--vkui--color_background_secondary)',
                                 borderRadius: 8,
                                 }
                             : {}
                         }
-                        data-story="home"
-                        onClick={onStoryChange}
+                        data-story="main"
+                        onClick={(e) => router.pushPage(PAGE_MAIN)}
                         before={<Icon28Newsfeed />}
                     >
                     Главная
@@ -38,8 +42,9 @@ const PlusWidth = ({
                                 }
                             : {}
                         }
+                        
                         data-story="create"
-                        onClick={onStoryChange}
+                        onClick={(e) => router.pushPage(PAGE_CREATE)}
                         before={<Icon28Newsfeed />}
                     >
                     Создать
@@ -55,7 +60,7 @@ const PlusWidth = ({
                             : {}
                         }
                         data-story="friends"
-                        onClick={onStoryChange}
+                        onClick={(e) => router.pushPage(PAGE_FRIENDS)}
                         before={<Icon28Newsfeed />}
                         >
                             Друзья
@@ -71,7 +76,7 @@ const PlusWidth = ({
                         : {}
                     }
                     data-story="profile"
-                    onClick={onStoryChange}
+                    onClick={(e) => router.pushPage(PAGE_PROFILE)}
                     before={<Icon28Newsfeed />}
                     >
                     Профиль

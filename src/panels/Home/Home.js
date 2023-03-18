@@ -5,9 +5,23 @@ import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@v
 import bridge from '@vkontakte/vk-bridge'
 import './Home.css'
 import Queses from '../../components/Queses/Queses';
+import { useRouter } from '@happysanta/router';
 
-const Home = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
+const Home = ({ id, fetchedUser }) => {
+	const router = useRouter()
+
+	// return <Panel>
+	// 	<PanelHeader>Example</PanelHeader>
+	// 	<Group title='navigation title'>
+	// 		<Div>
+	// 			<Button level="2" size="xl">
+	// 				Show me the persik
+	// 			</Button>
+	// 		</Div>
+	// 	</Group>
+	// </Panel>
+
+	return <Panel id={id}>
 		<PanelHeader>Example</PanelHeader>
 		{fetchedUser &&
 		<Group header={<Header mode="secondary">User Data Fetched with VK Bridge</Header>}>
@@ -23,7 +37,7 @@ const Home = ({ id, go, fetchedUser }) => (
 			<Queses />
 		</Group>
 	</Panel>
-);
+};
 
 Home.propTypes = {
 	id: PropTypes.string.isRequired,

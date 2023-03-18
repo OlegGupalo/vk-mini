@@ -5,17 +5,20 @@ import { Panel, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
 
 import persik from './../../img/shanks.jpg';
 import './Persik.css';
+import { useRouter } from '@happysanta/router';
 
-const Persik = props => (
-	<Panel id={props.id}>
+const Persik = props => {
+	const router = useRouter()
+
+	return <Panel id={props.id}>
 		<PanelHeader
-			before={<PanelHeaderBack onClick={props.go} data-to="home"/>}
+			before={<PanelHeaderBack onClick={() => router.popPage()} />}
 		>
 			Persik handler
 		</PanelHeader>
 		<img className="Persik" src={persik} alt="Persik The Cat"/>
 	</Panel>
-);
+};
 
 Persik.propTypes = {
 	id: PropTypes.string.isRequired,
